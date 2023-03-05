@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha './**/*.test.js' --exit"
   },
   "repository": {
     "type": "git",
@@ -16,5 +16,14 @@
   "bugs": {
     "url": "https://github.com/nicholas-gcc/nodejs-ecommerce-microservice/issues"
   },
-  "homepage": "https://github.com/nicholas-gcc/nodejs-ecommerce-microservice#readme"
+  "homepage": "https://github.com/nicholas-gcc/nodejs-ecommerce-microservice#readme",
+  "dependencies": {
+    "chai": "^4.3.7",
+    "chai-http": "^4.3.0",
+    "mocha": "^10.2.0",
+    "mongoose": "^7.0.0"
+  },
+  "devDependencies": {
+    "dotenv": "^16.0.3"
+  }
 }
