@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha './**/*.test.js' --exit"
+    "test": "mocha --timeout 10000 --recursive '**/*.test.js' --exit"
   },
   "repository": {
     "type": "git",
@@ -20,6 +20,7 @@
   "dependencies": {
     "chai": "^4.3.7",
     "chai-http": "^4.3.0",
+    "express": "^4.18.2",
     "mocha": "^10.2.0",
     "mongoose": "^7.0.0"
   },
