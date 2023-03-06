@@ -19,7 +19,4 @@ jobs:
         npm ci
     - name: Run tests
       run: |
-        cd auth
-        npm test -- --exit
-        cd ..
-        npm test -- --exit
+        npm test
