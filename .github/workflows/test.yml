@@ -1,6 +1,10 @@
 name: CI
 on: [push, pull_request]
 
+env:
+  MONGODB_URI: ${{ env.TEST_MONGODB_URI }}
+  JWT_SECRET: ${{ env.TEST_JWT_SECRET }}
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -9,8 +13,8 @@ jobs:
       uses: actions/checkout@v3.2.0
     - name: Create .env file
       run: |
-        echo "MONGODB_URI=${{ secrets.TEST_MONGODB_URI }}" >> .env
-        echo "JWT_SECRET=${{ secrets.TEST_JWT_SECRET }}" >> .env
+        echo "MONGODB_URI=${{ env.TEST_MONGODB_URI }}" >> .env
+        echo "JWT_SECRET=${{ env.TEST_JWT_SECRET }}" >> .env
     - name: Install dependencies
       run: |
         cd auth
