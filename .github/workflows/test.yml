@@ -1,36 +1,24 @@
-name: Test
-
-on: [push]
+name: CI
+on: [push, pull_request]
 
 jobs:
   test:
     runs-on: ubuntu-latest
-
+    env:
+      MONGODB_URI: ${{ secrets.MONGODB_URI }}
+      JWT_SECRET: ${{ secrets.JWT_SECRET }}
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-      with:
-        ref: main
-
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '16.x'
-
-    - name: Install auth dependencies
+    - name: Install dependencies
       run: |
         cd auth
         npm ci
-
-    - name: Set up environmental variables
-      run: |
-        echo "MONGODB_URI=${{ secrets.MONGODB_URI }}" >> .env
-        echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> .env
-
-    - name: Run auth tests
+        cd ..
+        npm ci
+    - name: Run tests
       run: |
         cd auth
-        npm test
-
-    - name: Run root tests
-      run: npm test
+        npm test -- --exit
+        cd ..
+        npm test -- --exit
