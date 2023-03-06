@@ -11,6 +11,8 @@ jobs:
       run: |
         echo "MONGODB_URI=${{ secrets.MONGODB_URI }}" >> .env
         echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> .env
+    - name: Verify .env file
+      run: cat .env
     - name: Install dependencies
       run: |
         cd auth
