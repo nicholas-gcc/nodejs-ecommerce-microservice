@@ -32,7 +32,7 @@ describe("User Authentication", () => {
       expect(res).to.have.status(200);
       expect(res.body).to.have.property("_id");
       expect(res.body).to.have.property("username", "testuser");
-    }, 10000);
+    });
 
     it("should return an error if the username is already taken", async () => {
       const res = await chai
@@ -43,7 +43,7 @@ describe("User Authentication", () => {
       expect(res).to.have.status(400);
       expect(res.body).to.have.property("message", "Username already taken");
     });
-  }, 10000);
+  });
 
   describe("POST /login", () => {
     it("should return a JWT token for a valid user", async () => {
