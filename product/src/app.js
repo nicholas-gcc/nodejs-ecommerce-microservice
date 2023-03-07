@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const config = require("./config");
 const MessageBroker = require("./utils/messageBroker");
 const productsRouter = require("./routes/productRoutes");
+require("dotenv").config();
 
 class App {
   constructor() {
@@ -18,7 +19,7 @@ class App {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
-    console.log("MongoDB connected");
+    console.log("MongoDB connected to", config.mongoURI);
   }
 
   async disconnectDB() {

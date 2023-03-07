@@ -2,18 +2,27 @@ const chai = require("chai");
 const chaiHttp = require("chai-http");
 const App = require("../app");
 const expect = chai.expect;
+require("dotenv").config();
 
 chai.use(chaiHttp);
+
 
 describe("Products", () => {
   let app;
 
   before(async () => {
     app = new App();
-    Promise.all([app.connectDB(), app.setupMessageBroker()])
-    .then(() => {
-      app.start();
-    })
+    await Promise.all([app.connectDB(), app.setupMessageBroker()])
+
+    // Authenticate with the auth microservice to get a token
+    const authRes = await chai
+      .request("http://localhost:3000")
+      .post("/login")
+      .send({ username: "tdduser", password: "tdduser" });
+
+    authToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MDYzNDQ0ZjE4NTIyODlkZTFiZWQ3ZSIsImlhdCI6MTY3ODEzMTUzMX0.3-aI0u0x54ftQc5rIzeb-v-TkWQ5mIlLW9hSOa8Kr6k";
+    console.log("authToken", authToken)
+    app.start();
   });
 
   after(async () => {
@@ -31,7 +40,12 @@ describe("Products", () => {
       const res = await chai
         .request(app.app)
         .post("/api/products")
-        .send(product);
+        .set("Authorization", `Bearer ${authToken}`)
+        .send({
+            name: "Product 1",
+            price: 10,
+            description: "Description of Product 1"
+          });
 
       expect(res).to.have.status(201);
       expect(res.body).to.have.property("_id");
@@ -48,6 +62,7 @@ describe("Products", () => {
       const res = await chai
         .request(app.app)
         .post("/api/products")
+        .set("Authorization", `Bearer ${authToken}`)
         .send(product);
 
       expect(res).to.have.status(400);

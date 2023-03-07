@@ -26,6 +26,8 @@
     "mongoose": "^7.0.0"
   },
   "devDependencies": {
-    "dotenv": "^16.0.3"
+    "dotenv": "^16.0.3",
+    "jsonwebtoken": "^9.0.0",
+    "wait-on": "^7.0.1"
   }
 }

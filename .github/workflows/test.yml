@@ -17,6 +17,12 @@ jobs:
         npm ci
         cd ..
         npm ci
+    - name: Install dependencies
+      run: |
+        cd auth
+        npm start
+    - name: Wait for authentication server
+      run: npx wait-on http://localhost:3000
     - name: Run tests
       run: |
         npm test
