@@ -26,10 +26,6 @@ jobs:
       run : |
         cd auth
         npm test
-    - name: Start auth server
-      run: |
-        cd auth
-        npm start
     - name: Run tests for product
       run: |
         cd auth &&
