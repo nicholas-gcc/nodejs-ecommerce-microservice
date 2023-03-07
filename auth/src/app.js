@@ -18,7 +18,7 @@ class App {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
-    console.log("MongoDB connected to", config.mongoURI);
+    console.log("MongoDB connected");
   }
 
   async disconnectDB() {

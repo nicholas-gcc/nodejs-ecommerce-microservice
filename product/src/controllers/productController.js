@@ -15,9 +15,7 @@ class ProductController {
             return res.status(400).json({ message: validationError.message });
           }
       
-        console.log("product", product)
           await product.save({ timeout: 30000 });
-        console.log("product saved", product)
       
           await messageBroker.publishMessage("products", product);
       
