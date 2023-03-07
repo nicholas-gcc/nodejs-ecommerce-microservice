@@ -1,5 +1,8 @@
 const ProductsRepository = require(".repositories/productsRepository");
 
+/**
+ * Class that ties together the business logic and the data access layer
+ */
 class ProductsService {
   constructor() {
     this.productsRepository = new ProductsRepository();

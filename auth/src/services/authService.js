@@ -4,7 +4,9 @@ const UserRepository = require("../repositories/userRepository");
 const config = require("../config");
 const User = require("../models/user");
 
-
+/**
+ * Class to hold the business logic for the auth service interacting with the user repository
+ */
 class AuthService {
   constructor() {
     this.userRepository = new UserRepository();

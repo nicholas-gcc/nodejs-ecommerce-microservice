@@ -1,5 +1,8 @@
 const AuthService = require("../services/authService");
 
+/**
+ * Class to encapsulate the logic for the auth routes
+ */
 
 class AuthController {
   constructor() {

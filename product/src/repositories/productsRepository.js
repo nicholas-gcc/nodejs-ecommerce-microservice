@@ -1,5 +1,8 @@
 const mongoose = require("mongoose");
 
+/**
+ * Class that contains the business logic for the product repository interacting with the product model
+ */
 const productSchema = new mongoose.Schema({
   name: { type: String, required: true },
   description: { type: String, required: true },

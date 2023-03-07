@@ -41,7 +41,9 @@ class App {
   }
 
   start() {
-    this.server = this.app.listen(3001, () => console.log("Server started on port 3001"));
+    this.server = this.app.listen(3001, () =>
+      console.log("Server started on port 3001")
+    );
   }
 
   async stop() {
@@ -52,4 +54,3 @@ class App {
 }
 
 module.exports = App;
-

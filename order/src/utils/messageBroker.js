@@ -11,7 +11,7 @@ class MessageBroker {
       // Declare the order queue
       await channel.assertQueue(config.rabbitMQQueue, { durable: true });
 
-      // Consume messages from the order queue
+      // Consume messages from the order queue on buy
       channel.consume(config.rabbitMQQueue, async (message) => {
         try {
           const order = JSON.parse(message.content.toString());
