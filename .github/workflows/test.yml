@@ -30,9 +30,9 @@ jobs:
       run: |
         cd auth
         npm start
-    - name: Wait for authentication server
-      run: npx wait-on http://localhost:3000
     - name: Run tests for product
       run: |
+        cd auth &&
+        npm start &
         cd product
         npm test
