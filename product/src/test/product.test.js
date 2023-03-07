@@ -18,10 +18,9 @@ describe("Products", () => {
     const authRes = await chai
       .request("http://localhost:3000")
       .post("/login")
-      .send({ username: "tdduser", password: "tdduser" });
+      .send({ username: process.env.LOGIN_TEST_USER, password: process.env.LOGIN_TEST_PASSWORD });
 
-    authToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MDYzNDQ0ZjE4NTIyODlkZTFiZWQ3ZSIsImlhdCI6MTY3ODEzMTUzMX0.3-aI0u0x54ftQc5rIzeb-v-TkWQ5mIlLW9hSOa8Kr6k";
-    console.log("authToken", authToken)
+    authToken = authRes.body.token;
     app.start();
   });
 
