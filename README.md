@@ -13,7 +13,8 @@ A microservice sample for building an e-commerce backend
 
 ## Microservice Structure
 <img width="678" alt="image" src="https://user-images.githubusercontent.com/69677864/223522265-3a585a38-0148-4921-bfea-fd19989c8bff.png">
-- The architecture for a microservice is inspired by Uncle Bob's [Clean Architecture](https://www.freecodecamp.org/news/a-quick-introduction-to-clean-architecture-990c014448d2) , which supports strong modularity, loose coupling and dependency injection
+
+- The architecture for a microservice is inspired by Uncle Bob's [Clean Architecture](https://www.freecodecamp.org/news/a-quick-introduction-to-clean-architecture-990c014448d2), which supports strong modularity, loose coupling and dependency injection
 
 Tech Stack: Node.js, Express, MongoDB, Docker, RabbitMQ, Mocha, Chai
 
