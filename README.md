@@ -3,7 +3,7 @@
 A microservice sample for building an e-commerce backend
 
 ## Software Architecture
-![image](https://user-images.githubusercontent.com/69677864/223518245-f6d682e1-26a1-45bb-8467-9be6623c47e4.png)
+<img width="810" alt="image" src="https://user-images.githubusercontent.com/69677864/223613048-384c48cd-f846-4741-9b0d-90fbb2442590.png">
 
 - The application uses an API gateway to bind all services along a single front, acting as a proxy for the domains in which the `auth`, `order` and `product` microservices are deployed on
 - Each microservice, the API gateway and RabbitMQ are deployed as Docker images
@@ -13,7 +13,7 @@ A microservice sample for building an e-commerce backend
 
 ## Microservice Structure
 <img width="678" alt="image" src="https://user-images.githubusercontent.com/69677864/223522265-3a585a38-0148-4921-bfea-fd19989c8bff.png">
-- The architecture for a microservice is inspired by [Uncle Bob's Clean Architecture](https://www.freecodecamp.org/news/a-quick-introduction-to-clean-architecture-990c014448d2/), which supports strong modularity, loose coupling and dependency injection
+- The architecture for a microservice is inspired by Uncle Bob's [Clean Architecture](https://www.freecodecamp.org/news/a-quick-introduction-to-clean-architecture-990c014448d2) , which supports strong modularity, loose coupling and dependency injection
 
 Tech Stack: Node.js, Express, MongoDB, Docker, RabbitMQ, Mocha, Chai
 
