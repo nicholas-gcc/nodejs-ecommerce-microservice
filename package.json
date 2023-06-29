@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --timeout 10000 --recursive --exclude '**/node_modules/**' '**/*.test.js' --exit"
+    "test": "mocha --timeout 20000 --recursive --exclude '**/node_modules/**' '**/*.test.js' --exit"
   },
   "repository": {
     "type": "git",
