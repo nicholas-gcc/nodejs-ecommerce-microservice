@@ -20,6 +20,7 @@ jobs:
       run: |
         cd auth
         npm ci
+        cd ..
         cd product
         npm ci
         cd ..
