@@ -20,6 +20,8 @@ jobs:
       run: |
         cd auth
         npm ci
+        cd product
+        npm ci
         cd ..
         npm ci
     - name: Run tests for auth
