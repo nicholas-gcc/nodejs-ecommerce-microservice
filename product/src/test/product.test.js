@@ -21,6 +21,7 @@ describe("Products", () => {
       .send({ username: process.env.LOGIN_TEST_USER, password: process.env.LOGIN_TEST_PASSWORD });
 
     authToken = authRes.body.token;
+    console.log(authToken);
     app.start();
   });
 
