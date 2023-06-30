@@ -10,22 +10,9 @@ class ProductController {
   constructor() {
     this.createOrder = this.createOrder.bind(this);
     this.getOrderStatus = this.getOrderStatus.bind(this);
-
     this.ordersMap = new Map();
 
-    // Setup consumer for "products" queue
-    messageBroker.consumeMessage("products", (data) => {
-      const orderData = JSON.parse(JSON.stringify(data));
-      const { orderId } = orderData;
-      const order = this.ordersMap.get(orderId);
-      if (order) {
-        // update the order in the map
-        this.ordersMap.set(orderId, { ...order, ...orderData, status: 'completed' });
-        console.log("Updated order:", order);
-      }
-    });
   }
-
 
   async createProduct(req, res, next) {
     try {
@@ -55,48 +42,57 @@ class ProductController {
       if (!token) {
         return res.status(401).json({ message: "Unauthorized" });
       }
+  
       const { ids } = req.body;
       const products = await Product.find({ _id: { $in: ids } });
-
-      // Calculate an initial totalPrice
-      const totalPrice = products.reduce((acc, product) => acc + product.price, 0);
-
+  
       const orderId = uuid.v4(); // Generate a unique order ID
       this.ordersMap.set(orderId, { 
-        status: 'pending', 
+        status: "pending", 
         products, 
-        userEmail: req.user.email, 
-        totalPrice  // Save the partially created order with totalPrice in the map
+        username: req.user.username
       });
-
+  
       await messageBroker.publishMessage("orders", {
         products,
-        userEmail: req.user.email,
+        username: req.user.username,
         orderId, // include the order ID in the message to orders queue
       });
 
-      return res.status(201).json({ orderId, products, totalPrice }); // Return the order ID, products, and totalPrice in the response
+      messageBroker.consumeMessage("products", (data) => {
+        const orderData = JSON.parse(JSON.stringify(data));
+        const { orderId } = orderData;
+        const order = this.ordersMap.get(orderId);
+        if (order) {
+          // update the order in the map
+          this.ordersMap.set(orderId, { ...order, ...orderData, status: 'completed' });
+          console.log("Updated order:", order);
+        }
+      });
+  
+      // Long polling until order is completed
+      let order = this.ordersMap.get(orderId);
+      while (order.status !== 'completed') {
+        await new Promise(resolve => setTimeout(resolve, 1000)); // wait for 1 second before checking status again
+        order = this.ordersMap.get(orderId);
+      }
+  
+      // Once the order is marked as completed, return the complete order details
+      return res.status(201).json(order);
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: "Server error" });
     }
   }
+  
 
-
-  async getOrderStatus(req, res, next) { // New method to check order status
-    try {
-      const { orderId } = req.params;
-      const order = this.ordersMap.get(orderId);
-
-      if (!order) {
-        return res.status(404).json({ message: "Order not found" });
-      }
-
-      return res.status(200).json(order);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Server error" });
+  async getOrderStatus(req, res, next) {
+    const { orderId } = req.params;
+    const order = this.ordersMap.get(orderId);
+    if (!order) {
+      return res.status(404).json({ message: 'Order not found' });
     }
+    return res.status(200).json(order);
   }
 
   async getProducts(req, res, next) {
