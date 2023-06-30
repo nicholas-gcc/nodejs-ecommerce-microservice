@@ -1,6 +1,6 @@
 # nodejs-ecommerce-microservice
 
-A microservice sample for building an e-commerce backend
+A microservice sample for building an e-commerce backend. Medium article write-up on this project can be found here [here](https://medium.com/@nicholasgcc/building-scalable-e-commerce-backend-with-microservices-exploring-design-decisions-node-js-b5228080403b)
 
 ## Software Architecture
 <img width="810" alt="image" src="https://user-images.githubusercontent.com/69677864/223613048-384c48cd-f846-4741-9b0d-90fbb2442590.png">
